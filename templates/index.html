@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Despensa Familiar</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; background-color: #f4f4f9; }
+        .menu { display: flex; justify-content: space-around; margin-bottom: 20px; }
+        .btn-tienda { padding: 15px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; }
+        .bbb { background-color: #e63946; } .aurrera { background-color: #2a9d8f; } .zorro { background-color: #f4a261; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>🏠 Despensa de Casa</h1>
+    
+    <div class="menu">
+        <a href="/tienda/3B" class="btn-tienda bbb">Tienda 3B</a>
+        <a href="/tienda/Aurrera" class="btn-tienda aurrera">Aurrera</a>
+        <a href="/tienda/Zorro" class="btn-tienda zorro">Zorro</a>
+    </div>
+
+    <div class="card">
+        <h3>➕ Agregar Producto</h3>
+        <form action="/agregar" method="POST">
+            <input type="text" name="nombre" placeholder="Producto" required>
+            <select name="tienda">
+                <option value="3B">3B</option>
+                <option value="Aurrera">Aurrera</option>
+                <option value="Zorro">Zorro</option>
+            </select>
+            <input type="number" name="actual" placeholder="Tengo" required>
+            <input type="number" name="meta" placeholder="Meta" required>
+            <button type="submit">Añadir</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>📋 Inventario General</h3>
+        <table>
+            <tr><th>Producto</th><th>Tienda</th><th>Stock</th><th>Faltan</th></tr>
+            {% for p in productos %}
+            <tr>
+                <td>{{ p[1] }}</td>
+                <td>{{ p[2] }}</td>
+                <td>{{ p[3] }} / {{ p[4] }}</td>
+                <td style="color: red;">{{ p[4] - p[3] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>💰 Gastos del Año</h3>
+        <p><strong>Total Anual:</strong> ${{ total_anual }}</p>
+        <ul>
+            {% for mes in gastos_mensuales %}
+            <li>Mes {{ mes[0] }}: ${{ mes[1] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

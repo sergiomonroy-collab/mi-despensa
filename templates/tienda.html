@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprando en {{ tienda }}</title>
+</head>
+<body>
+    <h1>Lista para: {{ tienda }}</h1>
+    <form action="/registrar_compra" method="POST">
+        <input type="hidden" name="tienda" value="{{ tienda }}">
+        <ul>
+            {% for p in productos %}
+            <li>{{ p[1] }} (Faltan {{ p[4] - p[3] }} unidades)</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <label>¿Cuánto gastaste hoy en total?: $</label>
+        <input type="number" step="0.01" name="total_gastado" required>
+        <button type="submit">Finalizar Compra y Actualizar Stock</button>
+    </form>
+    <br>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>
